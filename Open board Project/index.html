@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            margin: 0px;
+        }
+        .fa-regular{
+            font-size: 2rem;
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+        .fa-solid{
+            font-size: 2rem;
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+
+        .icon-pallet{
+            height: 50px;
+            width: 800px;
+            background-color: rgb(238, 234, 234);
+            margin-left: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .red{
+            background-color: lightpink;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        .green{
+            background-color: lightgreen;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        .blue{
+            background-color: lightblue;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <h1>Canvas Example</h1>
+    <!-- drawing board -->
+
+    <div class="icon-pallet">
+        <i class="fa-regular fa-square"></i>
+        <i class="fa-solid fa-grip-lines-vertical"></i>
+
+        <div class="red"></div>
+        <div class="green"></div>
+        <div class="blue"></div>
+
+    </div>
+
+   <canvas></canvas>
+  
+</body>
+<!-- html js inject-->
+
+<script>
+    let canvasBoard = document.querySelector("canvas");
+    let body = document.querySelector("body");
+    let rectTool=document.querySelector(".fa-square");
+    let lineTool=document.querySelector(".fa-grip-lines-vertical");
+    let cTool ="rectTool";
+
+    canvasBoard.height = window.innerHeight;
+    canvasBoard.width = window.innerWidth;
+
+    // this line gives you us tool to draw on the canvas
+    let tool = canvasBoard.getContext("2d");
+    
+    let redColor = document.querySelector(".red");
+        let greenColor = document.querySelector(".green");
+        let blueColor = document.querySelector(".blue");
+    
+        redColor.addEventListener("click",function(){
+            tool.strokeStyle="lightpink";
+        })
+    
+        greenColor.addEventListener("click",function(){
+            tool.strokeStyle="lightgreen";
+        })
+    
+        blueColor.addEventListener("click",function(){
+            tool.strokeStyle="lightblue";
+        })
+
+
+
+// tool chnage logic
+
+rectTool.addEventListener("click",function(){
+    cTool="rectTool";
+})
+lineTool.addEventListener("click",function(){
+    cTool="lineTool";
+})
+
+// press on the screen
+let boardTop=canvasBoard.getBoundingClientRect().top;
+let boardLeft=canvasBoard.getBoundingClientRect().left;
+
+let iX,iY,fX,fY;
+
+    body.addEventListener("mousedown",
+    function(e){
+        iX=e.clientX - boardLeft;
+        iY=e.clientY - boardTop;
+
+    })
+
+    body.addEventListener("mouseup",
+    function(e){
+        fX=e.clientX - boardLeft;
+        fY=e.clientY -  boardTop;
+        let width = fX-iX;
+        let height = fY - iY;
+        
+        if (cTool=="rectTool"){
+            tool.strokeRect(iX,iY,width,height);
+         }else{
+            tool.beginPath();
+            tool.moveTo(iX,iY);
+            tool.lineTo(fX,fY);
+            tool.stroke();
+         }
+    })
+
+let drawingMode = false;
+
+body.addEventListener("mousedown",function(e){
+    drawingMode=true;
+    tool.beginPath();
+    tool.moveTo(e.clientX-boardLeft,e.clientY-boardTop);
+
+})
+
+body.addEventListener("mouseup",function(e){
+    drawingMode=false;
+})
+
+body.addEventListener("mousemove",function(e){
+    if(drawingMode == false)
+        return;
+    
+    fX=e.clientX-boardLeft;
+    fY=e.clientY-boardTop;
+    tool.lineTo(fX,fY);
+    tool.stroke();
+    iX=fX;
+    iY=fY;
+})
+
+</script>
+
+</html>

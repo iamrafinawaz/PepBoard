@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        div{
+            border: 1px solid green;
+        }
+        .outer{
+            border: 3px solid purple;
+            width: 200px;
+            height: 100px;
+            display: flex; /* Used to align horizontally */
+            justify-content: space-evenly;
+            align-items: center;
+
+
+        }
+        .red{
+            background-color: lightpink;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        .green{
+            background-color: lightgreen;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        .blue{
+            background-color: lightblue;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .color-area{
+            border: 1px solid gray;
+            height: 100px;
+            width: 100px;
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+
+    </style>
+
+    <div class="outer">
+        <div class="red"></div>
+        <div class="green"></div>
+        <div class="blue"></div>
+    </div>
+
+    <div class="color-area"></div>
+
+    <script>
+        let colorArea=document.querySelector(".color-area");
+
+
+        let redColor = document.querySelector(".red");
+        let greenColor = document.querySelector(".green");
+        let blueColor = document.querySelector(".blue");
+
+        redColor.addEventListener("click",function(){
+            colorArea.style.backgroundColor="lightpink";
+        })
+
+        greenColor.addEventListener("click",function(){
+            colorArea.style.backgroundColor="lightgreen";
+        })
+
+        blueColor.addEventListener("click",function(){
+            colorArea.style.backgroundColor="lightblue";
+        })
+
+
+    </script>
+    
+</body>
+</html>
